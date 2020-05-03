@@ -1,6 +1,5 @@
 import { mutationType, objectType, stringArg, floatArg, arg } from '@nexus/schema';
 import client from '../database';
-// @ts-ignore
 import { NexusGenRootTypes } from './__generated__/types';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
@@ -96,8 +95,10 @@ export const Mutation = mutationType({
         type: arg({ type: 'TransactionType', required: true }),
         value: floatArg({ required: true }),
         date: stringArg({ required: true }),
-        category: stringArg({ required: false })
+        category: stringArg({ required: false }),
+        currency: stringArg({ required: true })
       },
+      // @ts-ignore
       resolve: async (_, args, context) => {
         if (!context.id) {
           return new Error('user not authenticated');
@@ -129,7 +130,8 @@ export const Mutation = mutationType({
         type: arg({ type: 'TransactionType', required: false }),
         value: floatArg({ required: false }),
         date: stringArg({ required: false }),
-        category: stringArg({ required: false })
+        category: stringArg({ required: false }),
+        currency: stringArg({ required: false })
       },
       resolve: async (_, args, context) => {
         if (!context.id) {
@@ -137,8 +139,8 @@ export const Mutation = mutationType({
         }
 
         try {
-          const fields = { ...args, updated_at: Date.now() };
-
+          const fields = { ...args, updated_at: new Date().toISOString() };
+          // @ts-ignore
           const transaction = (await client<NexusGenRootTypes['Transaction']>('transactions').where({ id: args.transactionID, owner: context.id }).update(fields).returning('*'))[0];
 
           return transaction;
@@ -153,6 +155,7 @@ export const Mutation = mutationType({
       args: {
         transactionID: stringArg({ required: true })
       },
+      // @ts-ignore
       resolve: async (_, args, context) => {
         if (!context.id) {
           return new Error('user not authenticated');

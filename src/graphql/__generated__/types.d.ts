@@ -30,6 +30,7 @@ export interface NexusGenRootTypes {
   Transaction: { // root type
     category?: string | null; // String
     created_at: string; // String!
+    currency: string; // String!
     date: string; // String!
     description?: string | null; // String
     id: string; // ID!
@@ -81,6 +82,7 @@ export interface NexusGenFieldTypes {
   Transaction: { // field return type
     category: string | null; // String
     created_at: string; // String!
+    currency: string; // String!
     date: string; // String!
     description: string | null; // String
     id: string; // ID!
@@ -111,6 +113,7 @@ export interface NexusGenArgTypes {
   Mutation: {
     createTransaction: { // args
       category?: string | null; // String
+      currency: string; // String!
       date: string; // String!
       description?: string | null; // String
       title: string; // String!
@@ -122,6 +125,7 @@ export interface NexusGenArgTypes {
     }
     editTransaction: { // args
       category?: string | null; // String
+      currency?: string | null; // String
       date?: string | null; // String
       description?: string | null; // String
       title?: string | null; // String

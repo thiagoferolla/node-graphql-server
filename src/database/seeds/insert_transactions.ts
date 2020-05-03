@@ -12,6 +12,7 @@ export async function seed(knex: Knex): Promise<any> {
         owner: '1',
         type: 'earning',
         value: 100,
+        currency: 'USD',
         date: (new Date()).toISOString()
       }, {
         id: 't-2',
@@ -20,6 +21,7 @@ export async function seed(knex: Knex): Promise<any> {
         owner: '1',
         type: 'expense',
         value: 50,
+        currency: 'USD',
         date: (new Date()).toISOString()
       }]);
     });

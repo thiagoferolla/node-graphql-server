@@ -16,6 +16,7 @@ export async function up(knex: Knex): Promise<any> {
         .onDelete('CASCADE');
       table.float('value').notNullable();
       table.timestamp('date').notNullable();
+      table.string('currency').notNullable();
       table.string('category').nullable();
 
       table.timestamps(true, true);

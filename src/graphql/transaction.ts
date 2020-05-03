@@ -31,6 +31,7 @@ export const Transaction = objectType({
     t.float('value', { nullable: false });
     t.string('date', { nullable: false });
     t.string('category', { nullable: true });
+    t.string('currency', { nullable: false });
 
     t.string('created_at');
     t.string('updated_at');

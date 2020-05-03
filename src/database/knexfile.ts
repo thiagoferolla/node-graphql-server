@@ -18,9 +18,10 @@ const database = {
   staging: {
     client: 'mysql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
@@ -34,9 +35,10 @@ const database = {
   production: {
     client: 'mysql',
     connection: {
-      database: 'my_db',
-      user: 'username',
-      password: 'password'
+      host: process.env.DB_HOST,
+      database: process.env.DB_NAME,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD
     },
     pool: {
       min: 2,
