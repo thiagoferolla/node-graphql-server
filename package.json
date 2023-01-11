@@ -15,7 +15,7 @@
     "graphql": "^15.0.0",
     "graphql-yoga": "^1.18.3",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.21.1",
+    "knex": "^2.4.0",
     "mysql": "^2.18.1",
     "nexus": "^0.20.0",
     "sqlite3": "^4.2.0",
