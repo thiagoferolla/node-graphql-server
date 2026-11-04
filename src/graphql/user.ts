@@ -10,8 +10,6 @@ export const User = objectType({
 
     t.string('name', { nullable: true });
     t.string('email', { nullable: false });
-
-    t.string('password', { nullable: false });
     t.string('push_token', { nullable: true });
     t.int('loginAttempts', { nullable: false });
 

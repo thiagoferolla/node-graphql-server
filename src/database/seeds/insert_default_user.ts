@@ -1,12 +1,13 @@
 import * as Knex from 'knex';
-import { NexusGenRootTypes } from '../../graphql/__generated__/types';
+// eslint-disable-next-line no-unused-vars
+import { UserRow } from '../types';
 import * as bcrypt from 'bcrypt'
 
 export async function seed(knex: Knex): Promise<any> {
   return knex('users').del()
     .then(() => {
       // Inserts seed entries
-      return knex<NexusGenRootTypes['User']>('users').insert([{
+      return knex<UserRow>('users').insert([{
         id: '1',
         name: 'Thiago Ferolla',
         email: 'thiagofunascimento@gmail.com',

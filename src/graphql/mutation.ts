@@ -1,6 +1,8 @@
 import { mutationType, objectType, stringArg, floatArg, arg } from '@nexus/schema';
 import client from '../database';
 import { NexusGenRootTypes } from './__generated__/types';
+// eslint-disable-next-line no-unused-vars
+import { UserRow } from '../database/types';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { usersLoader, transactionsLoader } from '../database/loaders';
@@ -28,7 +30,7 @@ export const Mutation = mutationType({
       resolve: async (_, args) => {
         const { name, email, password } = args;
         const newUserID = uuid();
-        (await client<NexusGenRootTypes['User']>('users').insert({
+        (await client<UserRow>('users').insert({
           id: newUserID,
           name,
           email,
@@ -58,7 +60,7 @@ export const Mutation = mutationType({
         const passwordCorrect = await bcrypt.compare(args.password, user.password);
 
         if (!passwordCorrect) {
-          await client<NexusGenRootTypes['User']>('users').where('email', args.email).update({ loginAttempts: user.loginAttempts + 1 });
+          await client<UserRow>('users').where('email', args.email).update({ loginAttempts: user.loginAttempts + 1 });
 
           throw new Error('incorrect password');
         };
@@ -77,7 +79,7 @@ export const Mutation = mutationType({
       resolve: async (_, args, context) => {
         const { id } = context;
 
-        const deleted = (await client<NexusGenRootTypes['User']>('users').where('id', id).delete().returning('*'))[0];
+        const deleted = (await client<UserRow>('users').where('id', id).delete().returning('*'))[0];
 
         if (deleted) {
           return true;
