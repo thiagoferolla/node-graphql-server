@@ -46,7 +46,6 @@ export interface NexusGenRootTypes {
     id: string; // ID!
     loginAttempts: number; // Int!
     name?: string | null; // String
-    password: string; // String!
     push_token?: string | null; // String
     updated_at: string; // String!
   }
@@ -99,7 +98,6 @@ export interface NexusGenFieldTypes {
     id: string; // ID!
     loginAttempts: number; // Int!
     name: string | null; // String
-    password: string; // String!
     push_token: string | null; // String
     transactions: NexusGenRootTypes['Transaction'][]; // [Transaction!]!
     updated_at: string; // String!
