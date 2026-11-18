@@ -133,15 +133,26 @@ export const Mutation = mutationType({
         category: stringArg({ required: false }),
         currency: stringArg({ required: false })
       },
+      // @ts-ignore
       resolve: async (_, args, context) => {
         if (!context.id) {
           return new Error('user not authenticated');
         }
 
+        const { transactionID, ...changes } = args;
+
         try {
-          const fields = { ...args, updated_at: new Date().toISOString() };
-          // @ts-ignore
-          const transaction = (await client<NexusGenRootTypes['Transaction']>('transactions').where({ id: args.transactionID, owner: context.id }).update(fields).returning('*'))[0];
+          const updated = await client('transactions').where({ id: transactionID, owner: context.id }).update({ ...changes, updated_at: new Date().toISOString() });
+
+          if (!updated) {
+            return new Error('unable to edit transaction');
+          }
+
+          const transaction = await client<NexusGenRootTypes['Transaction']>('transactions').where({ id: transactionID, owner: context.id }).first();
+
+          if (!transaction) {
+            return new Error('unable to edit transaction');
+          }
 
           return transaction;
         } catch (err) {
